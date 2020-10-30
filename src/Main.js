@@ -2,6 +2,7 @@ import React from 'react';
 import {SafeAreaView,  StyleSheet,  ScrollView,  View,  Text, } from 'react-native';
 
 import styles from './styles'
+
 const Main = () => {
   return (
     <>

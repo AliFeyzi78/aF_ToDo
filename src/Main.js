@@ -1,17 +1,25 @@
 import React from 'react';
 import {SafeAreaView,  StyleSheet,  ScrollView,  View,  Text, } from 'react-native';
 
-import styles from './styles'
+import {main} from './styles';
+import TodoInput from './components/TodoInput';
 
 const Main = () => {
   return (
     <>
-      <SafeAreaView style={styles.container}>
-          <View style={styles.container}>
-              <View style={styles.banner}>
-                  <Text style={styles.todoText}>TODO</Text>
-                  <Text style={styles.todoCount}> 10</Text>
+      <SafeAreaView style={main.container}>
+          <View style={main.container}>
+
+              <View style={main.banner}>
+
+                  
+                  <Text style={main.todoText}>TODO</Text>
+                  <Text style={main.todoCount}> 10</Text>
+            
               </View>
+
+              <TodoInput />
+
           </View>
       </SafeAreaView>
     </>

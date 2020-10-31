@@ -1,0 +1,48 @@
+
+❗ ⏩  ▶
+
+⏩ useState kullanımı => içerisinde bir bilgi veya bir durum saklayacaksak ve bu bilgiyi değiştireceksek kullanırız.
+
+KULLANIMI:
+ 1. React'ten {useState} import edilecek.
+    ▶ import React, {useState} from 'react';
+
+ 2.  kullanıcı her bir harfe bastığında bu değer saklanacak. bunun için bir değişken, bu değişkeni değiştirecek bir 
+ fonk ve 
+    ilk değer tanımlaması yapacağız.
+    ▶ const [text, setText] = useState("");
+
+3. "text" değişkenine değer gönderebilmek için bir "metod" kullanırız. 'onChangeText'
+    ▶ <TextInput
+        onChangeText={value=> setText(value)}
+        ⏩ 
+
+4. girilen value'yu TextInput'tan alıyoruz.
+    I. girilen değer "main"e çekebilmek için 'onTodoEnter' isminde tetiklenen bir metod belirliyioruz. 
+    Böylece mainden tetiklemiş oluyoruz.;
+      ▶  <TodoInput 
+                  onTodoEnter={}
+
+5. girilen ve "text" ile saklanan value yu "onPress" ile "main" deki "todo_Input" a gönderebiliyoruz.
+    ▶ <TouchableOpacity 
+                onPress={()=> props.onTodoEnter(text)}
+
+6. "main" e gelen value yu çekebileceğimiz metodun içini doldurmanın zamanı geldi artık. alıyoruz ve 'alert' 
+ekrana bastırıyoruz.
+    ▶ <TodoInput 
+                  onTodoEnter={todoText=>alert(todoText)}
+
+                    ❗ buradaki 'todoText' parametresi "TodoInput" dan gönderirken 'text' parametresi olarak 
+                    gönderildi
+                    fakat 'main' de ismini değiştirerek aldık.
+
+7. özet ;
+    a. girilen herbir harfi saklayacak useState -> değişken -> değişkeni kullanan fonk. tanımlıyoruz
+    b. kullanıcının her bir harfe bastığında bu değeri alacak metodu "TextInput -> onChangeText -> setText" fonk ile alıyoruz
+    c. sonra girilecekle bitince kullanıcı bir butona basıyor. böylece alınan değer "main" sayfamıza göndermek için
+       "onPress" ve "props" kullanıyoruz. bunu da "onPress -> props.fonksiyon()" ile yapıyoruz
+    d. artık verilerimiz "main" sayfasında props.fonksiyon ile geldi. burada bu verileri nasıl kullancağımıza karar 
+        veriyoruz. oluşturduğumuz component'ın içine ne yapacaksak onu yazıyoruz.
+        fonksiyon = {değişken => alert(değişken)}
+
+8. 

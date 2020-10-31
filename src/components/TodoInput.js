@@ -1,16 +1,26 @@
-import React from 'react';
-import {SafeAreaView, View, TextInput, Text} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, View, TextInput, Text, TouchableOpacity} from 'react-native';
 
-import {todo_Input} from '../styles'
+import {todo_Input} from '../styles';
+
 
 const TodoInput = (props) => {
+    const [text, setText] = useState("");
+
     return (
         <View style={todo_Input.container}>
             <View style = {todo_Input.inputContainer}>
-                <TextInput/>
+                <TextInput
+                    placeholder="what do you want TO DO today❓"
+                    onChangeText={value=> setText(value)}
+                />
             </View>
-
-            <Text>Todo Input</Text>
+            <TouchableOpacity 
+                style={todo_Input.buttonContainer}
+                onPress={()=> props.onTodoEnter(text)}
+            >
+                <Text style={todo_Input.buttonText}> ADD TODO</Text>
+            </TouchableOpacity>
             
         </View>
     ) 

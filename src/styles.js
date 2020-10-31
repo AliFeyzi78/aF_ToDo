@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Dimensions} from 'react-native';
 
 
 const main = StyleSheet.create ({
@@ -42,6 +42,20 @@ const todo_Input = StyleSheet.create ({
         padding:8,
         borderRadius:12,
 
+    },
+    buttonContainer:{
+        backgroundColor:'#80deea',
+        margin:10,
+        padding:5,
+        borderRadius:12,
+        alignSelf:'center',
+        width:Dimensions.get('window').width*0.5,
+    },
+    buttonText:{
+        textAlign:'center',
+        fontWeight:'bold',
+        fontSize:25,
+        color:'#870000',
     }
 })
 

@@ -1,14 +1,30 @@
-import React from 'react';
-import {SafeAreaView,  StyleSheet,  ScrollView,  View,  Text, } from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView,  StyleSheet,  ScrollView,  View,  Text, FlatList, KeyboardAvoidingView} from 'react-native';
 
 import {main} from './styles';
 import TodoInput from './components/TodoInput';
 
 const Main = () => {
+
+  const [list, setList] = useState([]);
+
+  function addTodo (text) {
+      const element = {
+        id: list.length,
+        todo: text,
+        isDone: false,
+      }
+      const newArray = [...list]
+      newArray.push(element)
+
+      console.log(newArray);
+      setList(newArray);
+  }
+
   return (
     <>
       <SafeAreaView style={main.container}>
-          <View style={main.container}>
+          <KeyboardAvoidingView style={main.container}>
 
               <View style={main.banner}>
 
@@ -18,11 +34,16 @@ const Main = () => {
             
               </View>
 
-              <TodoInput 
-                  onTodoEnter={todoText=>alert(todoText)}  
+              <FlatList 
+                  data={list}
+                  renderItem={() => null}
               />
 
-          </View>
+              <TodoInput 
+                  onTodoEnter={todoText=>addTodo(todoText)}  
+              />
+
+          </KeyboardAvoidingView>
       </SafeAreaView>
     </>
   );

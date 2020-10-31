@@ -45,4 +45,38 @@ ekrana bastırıyoruz.
         veriyoruz. oluşturduğumuz component'ın içine ne yapacaksak onu yazıyoruz.
         fonksiyon = {değişken => alert(değişken)}
 
-8. 
+**************************************************
+
+şimdi yapacağımız şey girilen verilerin "main" kısmında bir array içerisinde saklamak.
+
+1. array göstermek için "Flat list" component kullanacağız. Flat list scrollview'den kalıtılmıştır.
+
+2. yukarıdan çagrısını yapıyoruz;
+    ▶ import {SafeAreaView,  StyleSheet,  ScrollView,  View,  Text, FlatList} from 'react-native';
+
+3. Flat bizden 2 tane property ister "data" ve "renderItem"
+
+4. "data" zaten bizim girdiğimiz verilerden oluşan ve "array" tipindedir.
+
+5. "renderItem" ise bir fonksiyonu kullanrak oluşturulan data array inden verileri renderlemeye yarar.
+
+6. FlatList kullanıldığında bulunduğu ortamı (flex'i) tamamen kaplar. 
+
+7. kullanıcı veri girdiğinde array'e veri aktarmaya başlıyoruz.......
+
+8. todo ları saklamak için bir useState oluşturuyoruz.
+    ▶ import React, {useState} from 'react';
+    ▶ const [list, setList] = useState([]);
+
+9. artık FlatList imizin data kısmını göndereceğimiz boş bir array oluşturduk
+   ▶  <FlatList 
+                  data={list}
+
+10. kullanıcı "add" butonuna bastığında girdiği value yu ekranda görmek istiyoruz.
+    (önceden alert ile ekran yazdırdık) aynı yere yukarıda oluşturduğumuz yeni fonksiyonu yazacağız.
+    ▶ function addTodo (text) {
+      console.log(text);
+    ▶ <TodoInput 
+                  onTodoEnter={todoText=>addTodo(todoText)} 
+    
+

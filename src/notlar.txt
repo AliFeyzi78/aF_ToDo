@@ -78,5 +78,63 @@ ekrana bastırıyoruz.
       console.log(text);
     ▶ <TodoInput 
                   onTodoEnter={todoText=>addTodo(todoText)} 
-    
 
+11.  ❗❗❗ eger keyboard input'un önune geçiyorsa (❗genellikle IOS ta olur);
+    ▶ import {SafeAreaView, ......, KeyboardAvoidingView} from 'react-native';
+        sonra en dıştaki View'ı değiştiriyoruz.
+        ▶ return (
+             <>
+                <SafeAreaView style={main.container} behavior="padding">  ❗** behavior="padding"=> keyboard ile input arasına padding vermemizi sağlıyor.
+                    <KeyboardAvoidingView style={main.container}>
+                ....
+                    </KeyboardAvoidingView>
+            
+12. yukarıda console' a yazdırdığımız text'i oluşturulan fonksiyon ile yeni attributlar kazandırırarak yeni bir object oluşturduk.
+    ▶ function addTodo (text) {
+        const element = {
+            id: list.length,
+            todo: text,
+            isDone: false,
+                }
+        }
+
+13. artık oluşturulan her object'i eski girilenleri koruyarak yeni bir listeye ekleyeceğiz. bunun için ne yapacağız.;
+    ***spread operatoru yardımımıza koşuyor***
+
+14. daha önce useState ile oluşturduğumuz 'list' e gelen yeni attributlar(valuelar) ı yeni array'a ekleyerek devam ediyoruz.
+    ▶ function addTodo (text) {
+      const element = {
+        id: list.length,
+        todo: text,
+        isDone: false,
+      }
+      const newArray = [...list]
+      newArray.push(element)
+
+      // console.log(newArray);
+      setList(newArray);
+      }
+        ❗❗❗ neden useState içerisindeki list'i direk push yapmadık'ta yeniden array (newArray) oluşturduk???
+        ⏩ ***useState ile oluşturduğumuz liste "read-only"dir ve manüpüle edilemez......
+        examp:
+            const list=[1,2,3,4] 
+                bu listeye yeni bir eleman eklemek için;
+            const new_list = [...list,5]
+            console.log(new_list) =>  "[1,2,3,4,5]"
+15. şimdi kodumuzu biraz sadeleştirelim. yukarıdaki 'push'u kullanmadan 'spread' operatoru ile ekleme yapalım
+        ▶ const newArray = [...list]
+           newArray.push(element)
+           setList(newArray);
+    yerine
+        ▶ const newArray = [...list, element]
+           setList(newArray);
+    yazabiliriz....
+    element'i listenin başına eklemek için;
+        ▶ const newArray = [element, ...list]
+          setList(newArray);
+
+16. Artık oluşturacağımız costom component ile bu listeyi ekranda görelim.
+
+17. Components klasörüne yeni bir card component'u ekliyoruz.(TodoCard.js)
+
+18. 2 h 44 m kaldık

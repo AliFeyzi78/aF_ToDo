@@ -14,11 +14,10 @@ const Main = () => {
         todo: text,
         isDone: false,
       }
-      const newArray = [...list]
-      newArray.push(element)
-
-      console.log(newArray);
+      const newArray = [element, ...list]
+      // newArray.push(element)
       setList(newArray);
+      console.log(newArray);
   }
 
   return (

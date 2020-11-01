@@ -199,4 +199,15 @@ ekrana bastırıyoruz.
 
 27. text'e de style verebiliriz artık..
 
-28. 
+28. unuttugumuz bir nokta. "main -> FlatList" e 'keyExtractor' eklemek. Hemen ekleyeceğiz. 'keyExtractor' bizden 2 adet
+    parametre alır. bunlar "item ve index". burada ister "item" ister "index" herhangi birisini kullanabilirsiniz.
+    ama bunlardan en sağlıklısı "index" kullanmaktır.
+    ▶ <FlatList
+                  keyExtractor = {(item, index)=> index.toString()}  ❗ "index" string formatı kullandığı için 'toString' kullandık
+
+29. şimdi liste boşken ekrana birşey yazdırmak istiyoruz. !!Placeholder gibi. 
+    FlatList in hazır bir property si var; "ListEmptyComponent". fakat bu bizden boş bir component ister.
+    ▶<FlatList
+            ListEmptyComponent={()=> <Text>Nothing to do yet!!</Text>}
+            
+     

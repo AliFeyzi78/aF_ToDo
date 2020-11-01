@@ -59,4 +59,17 @@ const todo_Input = StyleSheet.create ({
     }
 })
 
-export {main, todo_Input};
+const todo_card = StyleSheet.create ({
+    container: {
+        backgroundColor:'white',
+        padding:5,
+        margin:3,
+        borderRadius:8
+    },
+    text: {
+        fontWeight:'bold',
+        fontSize:15,
+    }
+})
+
+export {main, todo_Input, todo_card};

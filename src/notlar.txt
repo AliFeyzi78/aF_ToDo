@@ -137,4 +137,66 @@ ekrana bastırıyoruz.
 
 17. Components klasörüne yeni bir card component'u ekliyoruz.(TodoCard.js)
 
-18. 2 h 44 m kaldık
+18. birçok component'i export etmektense yeni bir 'index.js' component'i ile işimizi kolaylaştırıyoruz.
+    haydi index.js oluşturalım ve diğer componentleri buaradan export edelim.
+
+19.  index.js içini dolduruyoruz;
+    ▶ export * from './TodoInput';
+       export * from './TodoCard';
+
+20. artık TodoCard componentine gelen verileri ekrana yazdıracağız. bunu direkt 'main-> renderItem' içerisine yazabiliriz.
+    fakat böyle yapmıyoruz çünkü performansımızı etkiliyor.
+    
+21. bu yüzden 'main'e bir fonksiyon (tek satırlık olacağı için 'return' yazmıyoruz) ile render'e fonksiyonu göndereceğiz
+    ▶ import {TodoInput, TodoCard} from './components';
+    
+    ▶ const renderTodo = ({item}) => <TodoCard data={item}/>   ❗todoCard ın data isimli prop una item'ı gönderdik.
+    
+    ▶ <FlatList 
+                  data={list}
+                  renderItem={renderTodo}     
+
+22. şimdi 'TodoCard' component içerisinde "renderItem->renderTodo->TodoCard" ile çektiğimiz verileri görebileceğiz.
+    renderTodo içerisindeki herbir "data = {item}" aşağıdaki "element"e tekabül ediyor.
+            function addTodo (text) {
+            const element = {
+                id: list.length,
+                todo: text,
+                isDone: false,
+            }
+    o zaman 'TodoCard' içerisindeki codumuz;
+    ▶   import React from 'react';
+        import {Text, View, TouchableOpacity} from 'react-native';
+
+        const TodoCard = (props) => {
+        return (
+            <View>
+                <Text>{props.data.todo}</Text>
+            </View>
+        )}
+
+        export {TodoCard};
+
+23. Artık ekranda görebiliyoruz...
+
+24. yukarıda girdiğimiz herbir todo yu sayan bir rakam girmiştik. buraya bir counter componenti ile girilenleri 
+    saydırabilriz. fakat uygulamaya extra yük bindirmemek için bunu listenin uzunluğu ile hallediyoruz.
+     ▶ <Text style={main.todoCount}>{list.length}</Text>   
+
+25. todo lara style verebiliriz artık. "styles" componentine geliyoruz.
+    ▶ const todo_card = StyleSheet.create ({
+        container:{
+        backgroundColor:'#90cc00',
+        },
+        })
+    export etmeyi de unutmayalım.
+    ▶ export {main, todo_Input, todo_card};
+
+26. sonra 'TodoCard' componentine geliyoruz ve style componentine bağlıyoruz.
+    ▶ import {todo_card} from '../styles'
+
+    ▶ <View style={todo_card.container}>
+
+27. text'e de style verebiliriz artık..
+
+28. 

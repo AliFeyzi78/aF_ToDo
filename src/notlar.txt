@@ -208,6 +208,95 @@ ekrana bastırıyoruz.
 29. şimdi liste boşken ekrana birşey yazdırmak istiyoruz. !!Placeholder gibi. 
     FlatList in hazır bir property si var; "ListEmptyComponent". fakat bu bizden boş bir component ister.
     ▶<FlatList
-            ListEmptyComponent={()=> <Text>Nothing to do yet!!</Text>}
-            
-     
+            ListEmptyComponent={()=> <Text style={main.emptyComponent}>Nothing to do yet!!</Text>}
+
+30. style component'ından ListEmptyComponent'a style verebilirsiniz.           
+
+31. todo ekledikten sonra, eklediğimiz todo_card'ın üzerine tıklayınca bir eylem yapmasını istiyoruz. mesala üzerini çizsin.
+    ve tamamlanmış görünsün.
+
+32. bınun için TodoCard component'a gidiyoruz ve 'TouchableOpacity' ile buton tasarımı yapacağız.
+
+33. daha önce View ile yaptığımız todo_card'ları 'TouchableOpacity'e çeviriyoruz.
+       ▶const TodoCard = (props) => {
+            return (
+                <TouchableOpacity style={todo_card.container}>
+                    <Text style={todo_card.text}>🙂{props.data.todo}</Text>
+                </TouchableOpacity>
+            )
+        }
+
+34. bunun için 'main-> element' içerisindeki "isDone: false", kısmını değiştireceğiz.
+
+35. ilk todo_card içerisindeki TouchableOpacity'e onPress ile bir fonksiyon ekliyoruz;
+    ▶<TouchableOpacity 
+            style={todo_card.container}
+            onPress={()=> props.onDone()}
+
+36. "main"e geliyoruz. burada iki ekleme yapacağız;
+    1. "renderTodo"ya (todo'muzu ekrana basan fonk.) "props.onDone" ile tetiklenen bilgiyi ileteceğiz
+        ▶ const renderTodo = ({item}) => {
+                return(
+                    <TodoCard 
+                        data={item}
+                        onDone={()=>doneTodo(item.id)}
+                    />
+                )}
+    2. bu bilgiyi kullancak bir fonksiyon yazacağız. yani bu veriye sahip oldumuzda ne yapsın uygulama. ornek olarak
+        alert ile ekrana bilgi verebilirsiniz
+        ▶ function doneTodo(todoId) {
+            alert("yaptık")
+            }
+
+37. şimdi hangi todo'ya dokunulursa ona ana listeden erişip isDone'ını değiştireceğiz.
+fonksiyonu manüpüle etmeye başlıyoruz. "function doneTodo(todoId)......"
+    * ana listemi kopyaladım 
+        ▶ const newArray = {...list};
+    * todu' nun listedeki index'ini bulacağız. tamamlanmış hale getireceğiz yani isDone değerini değiştireceğiz
+        ▶ const todoIndex = newArray.findIndex(item=> item.id == todoId);
+
+        ▶ newArray[todoIndex].isDone = !newArray[todoIndex].isDone;
+           setList(newArray)
+    * şimdi tamamlanmış haline farklı bir style verelim. üstünü çizelim.
+        bunu koşul ile yapacağız. isDone=true ise .... değilse ......
+        style override ile koşul tanımlaması yapacağız. TodoCard->Text' gidiyoruz...
+        ▶ <Text style={[
+                todo_card.text,
+                {textDecorationLine: props.data.isDone ? 'line-through' : null}
+                ]}
+                >🙂{props.data.todo}</Text>
+
+38. sırada; bir todo'yu işaretledigimiz zaman counter'ın sayısının azalmasını istiyoruz;
+    "main->list.length" e gidiyoruz. ve isDone durumları "false" olanları saydıracagız
+    
+39. listeyi filtreleme yapıyoruz.
+    ▶ return (
+        .....
+        <Text style={main.todoCount}>{list.filter(t => t.isDone === false).length}</Text>
+
+40. todo silmek için bir buton veya ğzerine basılı tuttuğumuzda silmesini istiyoruz.
+    "TodoCard" component gidiyoruz. ve onLongPress attr. kullanıyoruz. 
+    "onRemove" adında bir fonksiyon ile tetikleme yapıyoruz 
+    ▶ return (
+        ...
+        onLongPress={()=>props.onRemove()}
+
+41. "main"e geliyoruz ve tetiklediğimiz fonksiyonu render içerisinde yakalıyoruz;
+     ▶ const renderTodo = ({ item }) => {
+            return (
+                <TodoCard
+                    data={item}
+                    onDone={() => doneTodo(item.id)}
+                    onRemove={() => alert("silinsin mi?")}
+
+42. yakaladığımız isteği bir fonksiyon ile harekete geçiriyoruz
+    fonksiyon içerisinde önce eski listenin bir kopyasını oluşturduk, sonra onu manüpüle ettik. nasıl mı?
+    önce ilgili elemanın id sini tespit ediyoruz sonra onun idex'i üzerinden kaldırıyoruz.
+    ▶ function removeTodo(todoId){
+            const newArray = [...list];
+            const todoIndex = list.findIndex(t=>t.id==todoId);
+            newArray.splice(todoIndex, 1);
+            setList(newArray);
+       }
+
+
